@@ -1,12 +1,5 @@
 package kocra
 
-import (
-	"fmt"
-	"log"
-
-	yl "gopkg.in/yaml.v3"
-)
-
 type KubeUser struct {
 	Name string `yaml:"name"`
 	User struct {
@@ -46,17 +39,3 @@ type KubeConfigI interface {
 }
 
 type AllClusterContext []KubeConfig
-
-func (kc KubeConfig) GetKubeConfig(yamlBuf []byte) *KubeConfig {
-	err := yl.Unmarshal(yamlBuf, &kc)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	return &kc
-}
-
-func Initiate(flbuf []byte) {
-	kc := KubeConfig{}
-	kc = *kc.GetKubeConfig(flbuf)
-	fmt.Println(kc)
-}
