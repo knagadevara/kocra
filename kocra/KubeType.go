@@ -35,6 +35,7 @@ type KubeConfig struct {
 }
 
 type KubeConfigI interface {
+	GetKCpath() string
 	GetKubeConfig() *KubeConfig
 }
 
