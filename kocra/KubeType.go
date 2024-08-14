@@ -1,5 +1,7 @@
 package kocra
 
+import v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 type KubeUser struct {
 	Name string `yaml:"name"`
 	User struct {
@@ -40,3 +42,12 @@ type KubeConfigI interface {
 }
 
 type AllClusterContext []KubeConfig
+
+type KubePod struct {
+	Name              string
+	APIVersion        string `json:"apiVersion"`
+	Kind              string `json:"kind"`
+	Annotations       map[string]string
+	Labels            map[string]string
+	CreationTimestamp v1.Time
+}

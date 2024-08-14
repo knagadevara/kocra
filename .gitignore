@@ -8,7 +8,12 @@
 *.so
 *.dylib
 *.yaml
-
+*.json
+*.config
+*.conf
+*.cfg
+*.cnf
+*.yml
 # Test binary, built with `go test -c`
 *.test
 
