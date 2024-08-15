@@ -6,13 +6,11 @@ import (
 
 	v1 "k8s.io/api/apps/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
+	apps "k8s.io/client-go/kubernetes/typed/apps/v1"
 )
 
-func ListDeployments(clientset *kubernetes.Clientset, namespace string) *v1.DeploymentList {
-	deployments, err := clientset.AppsV1().
-		Deployments(namespace).
-		List(context.TODO(), metav1.ListOptions{})
+func ListDeployments(d apps.DeploymentInterface, metaLstOps metav1.ListOptions) *v1.DeploymentList {
+	deployments, err := d.List(context.TODO(), metaLstOps)
 	if err != nil {
 		log.Fatalln(err)
 		return nil
@@ -20,9 +18,8 @@ func ListDeployments(clientset *kubernetes.Clientset, namespace string) *v1.Depl
 	return deployments
 }
 
-func GetDeploymentDetails(clientset *kubernetes.Clientset, namespace string, depName string) *v1.Deployment {
-	deploymentDetails, err := clientset.AppsV1().
-		Deployments(namespace).Get(context.TODO(), depName, metav1.GetOptions{})
+func GetDeploymentDetails(d apps.DeploymentInterface, namespace string, deploymentName string) *v1.Deployment {
+	deploymentDetails, err := d.Get(context.TODO(), deploymentName, metav1.GetOptions{})
 	if err != nil {
 		log.Fatalln(err)
 		return nil
